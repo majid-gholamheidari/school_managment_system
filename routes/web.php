@@ -1,18 +1,18 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Authenticated users
+Route::group(['middleware' => 'auth:web', 'prefix' => 'panel', 'as' => 'panel.'], function () {
 
-Route::get('/', function () {
-    return view('welcome');
+    // super admins
+    include "roles/super_admin.php";
+
+
+    // managers
+    include "roles/managers.php";
+});
+
+// Authentication routes
+Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
+    Route::get('/sign-in', [\App\Http\Controllers\Web\Panel\AuthenticationController::class, 'signIn'])->name('sign-in');
 });
