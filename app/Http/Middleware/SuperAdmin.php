@@ -17,10 +17,10 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role != "super_admin") {
+        if (!auth()->user()->positions()->where('role', 'super_admin')->exists()) {
             auth()->logout();
             // User is not authenticated as a super admin
-            return redirect()->route('auth.sign-in')->with('error', 'لطفا برای دسترسی به صفحه مورد نظر، ابتدا وارد حساب کاربری خود شوید.');
+            return redirect()->route('auth.sign-in')->withErrors(['لطفا برای دسترسی به صفحه مورد نظر، ابتدا وارد حساب کاربری خود شوید.']);
         }
 
         // User is authenticated as super admin

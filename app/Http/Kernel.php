@@ -68,5 +68,8 @@ class Kernel extends HttpKernel
         // panel middleware
         'super_admin' => \App\Http\Middleware\SuperAdmin::class,
         'manager' => \App\Http\Middleware\Manager::class,
+        'teacher' => \App\Http\Middleware\Teacher::class,
+        'student' => \App\Http\Middleware\Student::class,
+        'sponsor' => \App\Http\Middleware\Sponsor::class,
     ];
 }
